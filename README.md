@@ -1,3 +1,26 @@
+# Customer.io Frontend Portion
+Completed by Michael Norton
+
+# What would I do next
+
+1. Login/Logout functionality 
+The mock-ups imply login/logout functionality although it appears to fall outside of the scope of the instructions. Besides allowing users to have a completely customized user experience, this is also a prerequisite for authorization. Speaking of which.... 
+
+2. Authorization
+This is an absolute-must for all applications to prevents unauthorized users from enacting any CRUD functionality on any feature that they shouldn't be able to. For this particular project, the use React Router protected routes in collaboration with a backend auth system.
+
+3. Global State
+As the application scales, we'll become limited through the creation of consumption of React Contexts so the use of a stronger global state management solution would be necessary. Through the use of reducers and actions, we can guarantee that the store only retains data that is relevant to us throughout the entire applcation, in a normalized format.
+
+4. Global Error Handling
+Establishing global state allows us to allow set up a global error handling component that can be fed errors through the store. This is a fantastic option because it drys up our code immensely, and prevents the end to create error handling solutions for each component.
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
