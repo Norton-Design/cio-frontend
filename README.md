@@ -1,6 +1,9 @@
 # Customer.io Frontend Portion
 Completed by Michael Norton
 
+# Things I will add:
+1. paginated responses
+
 # What would I do next
 
 1. Login/Logout functionality 

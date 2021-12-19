@@ -1,8 +1,9 @@
 import logo from './logo.svg';
-import { Route } from "react-router-dom"
+import { Route, Routes } from "react-router-dom"
 import './App.css';
 import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
+import CustomerList from './components/customers/CustomerList';
 
 
 function App() {
@@ -10,10 +11,11 @@ function App() {
     <>
       <Header />
       <main>
-        <h1>Testing</h1>
-        {/* <Route path="/customers" component={}/>
-        <Route path="/customer/:id" component={}/>
-        <Route path="/edit/customer/:id" component={}/> */}
+        <Routes>
+          <Route path="customers" element={<CustomerList/>}/>
+        {/* <Route path="customer/:id" element={}/> */}
+        {/* <Route path="/edit/customer/:id" element={}/> */}
+        </Routes>
       </main>
       <Footer />
     </>
