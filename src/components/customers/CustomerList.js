@@ -8,7 +8,7 @@ function CustomerList(props) {
     const [totalPages, setTotalPages] = useState(0);
     const [perPageAmount, setPerPageAmount] = useState(25);
 
-    useEffect(()=> {
+    useEffect(()=>{
         fetchCustomersData(currentPage, perPageAmount).then(response => {
             if (response.meta){
                 const metaData = response.meta

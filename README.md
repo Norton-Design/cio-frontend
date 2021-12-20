@@ -2,7 +2,14 @@
 Completed by Michael Norton
 
 # Things I will add:
+
 1. paginated responses
+2. favicon and metadata changes
+
+# Thoughts and musings:
+1. The customer edit page has "created_at" listed as a permanent (albeit, mutable) attribute, as does the backend prompt BUT this isn't found in the sample api call. This presents a problem as I wanted to have all the attributes that couldn't be deleted at the top of the list. Hmm, I'll see if I can adjust the sample api given.... 
+
+Completed this, BUT Go was requiring everthing in attributes to be a string SO I might have to change this back (from str to num) once I've completed everything. This might make testing a pain...
 
 # What would I do next
 
