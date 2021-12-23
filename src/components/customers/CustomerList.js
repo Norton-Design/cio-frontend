@@ -21,20 +21,28 @@ function CustomerList(props) {
     }, [])
 
     return (
-        <div>
-            <h1>Customers</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Email</th>
-                        <th>Last Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { list.map(customer => <CustomerListItem key={customer.id} customer={customer}/>)}
-                </tbody>
-            </table>
+        <div className="overflow-x-auto">
+            <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 font-sans overflow-hidden">
+                <div className="w-9/12 my-6">
+                <h1 className="text-4xl font-bold">Customers</h1>
+                <div className="w-full">
+                    <div className="bg-white shadow-md -rounded my-6">
+                        <table className="min-w-max w-full table-auto">
+                            <thead>
+                                <tr className="text-gray-800 uppercase text-sm leading-normal">
+                                    <th className="py-3 px-6 text-left">ID</th>
+                                    <th className="py-3 px-6 text-left">Email</th>
+                                    <th className="py-3 px-6 text-right">Last Updated</th>
+                                </tr>
+                            </thead>
+                            <tbody className="text-gray-900 text-sm">
+                                { list.map(customer => <CustomerListItem key={customer.id} customer={customer}/>)}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     )
 }

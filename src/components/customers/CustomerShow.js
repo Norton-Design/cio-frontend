@@ -26,7 +26,7 @@ function CustomerShow(props) {
             date = new Date(customer.last_updated)
             parsedTime = dateObjToFormatStr(date)
         })
-    }, [])
+    }, [urlParams.id])
 
     const mutableAttributes = () => {
         let mutables = {}
