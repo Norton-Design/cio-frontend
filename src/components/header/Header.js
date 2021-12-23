@@ -15,7 +15,7 @@ class Header extends React.Component {
     render () {
         return (
             <div className="py-6 bg-indigo-900 w-screen">
-                <div className="flex justify-between mx-auto w-9/12 font-bold text-white">
+                <div className="flex justify-between mx-auto w-9/12 font-normal text-white">
                     <div className="flex items-end">
                         <h3 className="mr-5 text-2xl bold">Customer.io</h3>
                         <nav>
@@ -26,7 +26,7 @@ class Header extends React.Component {
 
                     <div className="flex items-end">
                         <h2 className="ml-5 text-white">{ this.username }</h2>
-                        <button className="ml-5 underline font-bold hover:text-gray-300" onClick={ this.logout }>Log out</button>
+                        <button className="ml-5 underline font-medium hover:text-gray-300" onClick={ this.logout }>Log out</button>
                     </div>
                 </div>
             </div>

@@ -86,54 +86,65 @@ function CustomerEdit() {
     }
 
     const EditRow = props => {
-        const inputToggle = props.editable === false ?
-             <dd>{props.content}</dd> : <dd><input type="text" 
+        const inputToggle = props.editable === false ? 
+            <dd className="w-7/12 py-2 mt-0.5" >{props.content}</dd> : 
+            <dd className="w-7/12"><input 
+                className="w-full p-2 rounded border border-gray-400 mt-0.5" 
+                type="text" 
                 defaultValue={props.content} 
                 onChange={ (event)=>{handleChangeAttribute(props.attribute, event.target.value)} }/>
             </dd>
-        const removableToggle = props.removable === true ? <a onClick={()=>handleRemoveAttribute(props.attribute)}>Remove</a> : <></>
+        const removableToggle = props.removable === true ? 
+            <button className="self-center pl-4 underline transition text-red-600 hover:cursor-pointer hover:text-red-800" onClick={()=>handleRemoveAttribute(props.attribute)}>Remove</button> : 
+            <></>
         return (
-            <>
-                <dt>{props.attribute}</dt>
+            <div className="flex">
+                <dt className="w-4/12 p-2 align-bottom text-gray-500">{props.attribute}</dt>
                 { inputToggle }
                 { removableToggle }
-            </>
+            </div>
         )
     }
 
     let builtMutableRows = buildRows(mutableAttributes())
 
     return (
-        <> 
-            <div>
-                <div>
-                    <h1>{originalAttributes.email}</h1>
-                    <p>Last updated: { parsedTime }</p>
+        <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 text-gray-700"> 
+            <div className="w-9/12 my-6"> 
+                <div className="flex justify-between" >
+                    <div>
+                        <h1 className="text-4xl font-medium mb-4">{originalAttributes.email}</h1>
+                        <p>Last updated: { parsedTime }</p>
+                    </div>
                 </div>
+
+                <div className="mt-6">
+                    <h2 className="text-3xl font-medium mb-2">Attributes</h2>
+                    <form className="w-full" id="attribute-form" onSubmit={handleFormSubmit}>
+                        <dl>
+                            <EditRow attribute="id" content={id} editable={false}/>
+                            <EditRow attribute="email" content={modifiedAttributes.email} />
+                            <EditRow attribute="created_at" content={modifiedAttributes.created_at}/>
+                            { builtMutableRows }
+                        </dl>
+                    </form>
+                </div>
+
+                    <div className="flex my-10">
+                        <dt className="w-screen">
+                            <input className="w-full p-2 rounded border border-gray-400 mt-2" type="text" placeholder="name" id="new_attribute_name_input" />
+                        </dt>
+                        <dd className="w-screen">
+                            <input className="w-full p-2 rounded border border-gray-400 m-2" type="text" placeholder="value" id="new_attribute_value_input" />
+                        </dd>
+                        <input className="self-center pl-8 underline transition text-gray-400 hover:cursor-pointer hover:text-gray-800 mr-8" type="button" onClick={handleAddAttribute} value="Add" />
+                    </div>
+                    <div className="flex justify-end">
+                        <input className="underline mx-4 hover:cursor-pointer" form="attribute-form" type="reset" value="Discard Changes" onClick={handleDiscardChanges}/>
+                        <button className="px-6 py-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded font-medium" form="attribute-form">Save Changes</button>
+                    </div>
             </div>
-
-            <h2>Attributes</h2>
-            <form id="attribute-form" onSubmit={handleFormSubmit}>
-                <dl>
-                    <EditRow attribute="id" content={id} editable={false}/>
-                    <EditRow attribute="email" content={modifiedAttributes.email} />
-                    <EditRow attribute="created_at" content={modifiedAttributes.created_at}/>
-                    { builtMutableRows }
-                </dl>
-            </form>
-
-                <div>
-                    <dt>
-                        <input type="text" placeholder="name" id="new_attribute_name_input" />
-                    </dt>
-                    <dd>
-                        <input type="text" placeholder="value" id="new_attribute_value_input" />
-                    </dd>
-                    <input type="button" onClick={handleAddAttribute} value="Add" />
-                </div>
-                <input form="attribute-form" type="reset" value="Discard Changes" onClick={handleDiscardChanges}/>
-                <button form="attribute-form">Save Changes</button>
-        </>
+        </div>
     )
 }
 

@@ -50,15 +50,15 @@ function CustomerShow(props) {
         <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 text-gray-700"> 
             <div className="w-9/12 my-6">
                 <div className="flex justify-between">
-                    <div className="">
-                        <h1 className="text-4xl bold mb-4">{attributes.email}</h1>
+                    <div>
+                        <h1 className="text-4xl font-medium mb-4">{attributes.email}</h1>
                         <p>Last updated: { parsedTime }</p>
                     </div>
                     <Link className="p-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded" to={`edit`} >Edit Attributes</Link>
                 </div>
 
                 <div className="mt-6">
-                    <h2 className="text-4xl bold mb-2">Attributes</h2>
+                    <h2 className="text-3xl font-medium mb-2">Attributes</h2>
                     <table className="w-full">
                         <tbody>
                             <ShowRow attribute="id" content={id}/>
@@ -69,7 +69,7 @@ function CustomerShow(props) {
                     </table>
                 </div>
                 <div className="mt-6 w-full">
-                    <h2 className="text-4xl bold mb-2">Events</h2>
+                    <h2 className="text-3xl font-medium mb-2">Events</h2>
                     <table className="w-full">
                         <thead>
                             <tr className="bg-gray-200 w-full text-left border border-gray-300 border-t-0 border-l-0 border-r-0">
