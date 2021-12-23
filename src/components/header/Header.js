@@ -14,17 +14,19 @@ class Header extends React.Component {
 
     render () {
         return (
-            <div className="w-full py-6 bg-white w-screen">
-                <div className="flex items-center justify-between mx-auto xl:max-w-7xl lg:max-w-3xl md:px-2 px-4">
-                    <div>Customer.io</div>
-                    <nav>
-                        <Link to="/">Home</Link>
-                        <Link to="/customers">Customers</Link>
-                    </nav>
+            <div className="py-6 bg-indigo-900 w-screen">
+                <div className="flex justify-between mx-auto w-9/12 text-white font-bold">
+                    <div className="flex items-end">
+                        <h3 className="mr-5 text-2xl bold">Customer.io</h3>
+                        <nav>
+                            <Link className="mr-5 underline" to="/">Home</Link>
+                            <Link  className="mr-5 underline"to="/customers">Customers</Link>
+                        </nav>
+                    </div>
 
-                    <div>
-                        <h2>{ this.username }</h2>
-                        <button role="button" onClick={ this.logout }>Logout</button>
+                    <div className="flex items-end">
+                        <h2 className="ml-5">{ this.username }</h2>
+                        <button className="ml-5 underline font-bold" role="button" onClick={ this.logout }>Log out</button>
                     </div>
                 </div>
             </div>
