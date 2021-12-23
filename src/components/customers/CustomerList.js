@@ -23,14 +23,18 @@ function CustomerList(props) {
     return (
         <div>
             <h1>Customers</h1>
-            <ul>
-                <li>
-                    <h2>ID</h2>
-                    <h2>Email</h2>
-                    <h2>Last Updated</h2>
-                </li>
-                { list.map(customer => <CustomerListItem key={customer.id} customer={customer}/>)}
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Email</th>
+                        <th>Last Updated</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { list.map(customer => <CustomerListItem key={customer.id} customer={customer}/>)}
+                </tbody>
+            </table>
         </div>
     )
 }

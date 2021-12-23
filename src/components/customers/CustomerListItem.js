@@ -5,11 +5,11 @@ function CustomerListItem(props) {
     const date = new Date(props.customer.last_updated)
     const parsedTime = dateObjToFormatStr(date)
     return (
-        <li>
-            <p>{ props.customer.id }</p>
-            <Link to={ `customers/${props.customer.id}` }>{ props.customer.attributes.email }</Link>
-            <p>{ parsedTime }</p>
-        </li>
+        <tr>
+            <td>{ props.customer.id }</td>
+            <td><Link to={ `${props.customer.id}` }>{ props.customer.attributes.email }</Link></td> 
+            <td>{ parsedTime }</td>
+        </tr>
     )
 }
 

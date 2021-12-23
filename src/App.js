@@ -5,6 +5,7 @@ import Header from "./components/header/Header"
 import Footer from "./components/footer/Footer"
 import CustomerList from './components/customers/CustomerList';
 import CustomerShow from './components/customers/CustomerShow';
+import CustomerEdit from './components/customers/CustomerEdit';
 
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
         <Routes>
           <Route path="customers" element={ <CustomerList/> } />
           <Route path="customers/:id" element={ <CustomerShow /> }/>
-        {/* <Route path="customers/:id/edit" element={}/> */}
+          <Route path="customers/:id/edit" element={ <CustomerEdit /> }/>
         </Routes>
       </main>
       <Footer />

@@ -5,7 +5,6 @@ import { fetchCustomerData } from "../../api/APIUtils"
 
 
 function CustomerShow(props) {
-    const [customer, setCustomer] = useState({});
     const [id, setId] = useState(0); 
     const [events, setEvents] = useState({});
     const [attributes, setAttributes] = useState({})
@@ -18,18 +17,15 @@ function CustomerShow(props) {
     useEffect(()=>{
         fetchCustomerData(urlParams.id).then(response => {
             const customer = response.customer
-            console.log(customer)
             if (customer && customer.events){
                 setEvents(customer.events);
             }
-            setCustomer(customer);
             setId(customer.id)
             setAttributes(customer.attributes)
             setLastUpdated(customer.last_updated)
             date = new Date(customer.last_updated)
             parsedTime = dateObjToFormatStr(date)
         })
-
     }, [])
 
     const mutableAttributes = () => {
@@ -63,17 +59,26 @@ function CustomerShow(props) {
             </div>
 
             <h2>Attributes</h2>
-            <ul>
-                <ShowRow attribute="id" content={id}/>
-                <ShowRow attribute="email" content={attributes.email}/>
-                <ShowRow attribute="created_at" content={attributes.created_at}/>
-                { buildRows(mutableAttributes()) }
-            </ul>
+            <table>
+                <tbody>
+                    <ShowRow attribute="id" content={id}/>
+                    <ShowRow attribute="email" content={attributes.email}/>
+                    <ShowRow attribute="created_at" content={attributes.created_at}/>
+                    { buildRows(mutableAttributes()) }
+                </tbody>
+            </table>
             <h2>Events</h2>
-            <ul>
-                <ShowRow attribute="Event Name" content="Count"/>
-                { buildRows(events) }
-            </ul>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Event Name</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    { buildRows(events) }
+                </tbody>
+            </table>
         </>
     )
 }
@@ -82,9 +87,9 @@ export default CustomerShow
 
 function ShowRow(props){
     return (
-        <li>
-            <dt>{props.attribute}</dt>
-            <dd>{props.content}</dd>
-        </li>
+        <tr>
+            <td>{props.attribute}</td>
+            <td>{props.content}</td>
+        </tr>
     )
 }
