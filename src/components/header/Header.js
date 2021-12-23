@@ -15,18 +15,18 @@ class Header extends React.Component {
     render () {
         return (
             <div className="py-6 bg-indigo-900 w-screen">
-                <div className="flex justify-between mx-auto w-9/12 text-white font-bold">
+                <div className="flex justify-between mx-auto w-9/12 font-bold text-white">
                     <div className="flex items-end">
                         <h3 className="mr-5 text-2xl bold">Customer.io</h3>
                         <nav>
-                            <Link className="mr-5 underline" to="/">Home</Link>
-                            <Link  className="mr-5 underline"to="/customers">Customers</Link>
+                            <Link className="mr-5 underline hover:text-gray-300" to="/">Home</Link>
+                            <Link className="mr-5 underline hover:text-gray-300" to="/customers">Customers</Link>
                         </nav>
                     </div>
 
                     <div className="flex items-end">
-                        <h2 className="ml-5">{ this.username }</h2>
-                        <button className="ml-5 underline font-bold" role="button" onClick={ this.logout }>Log out</button>
+                        <h2 className="ml-5 text-white">{ this.username }</h2>
+                        <button className="ml-5 underline font-bold hover:text-gray-300" onClick={ this.logout }>Log out</button>
                     </div>
                 </div>
             </div>

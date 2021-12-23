@@ -23,15 +23,15 @@ function CustomerList(props) {
     }, [])
 
     const prevPageLink = currentPage > 1 ? 
-        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage - 1}&per_page=${perPageAmount}`}>Previous</Link> 
-        : <></>;
+        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage - 1}&per_page=${perPageAmount}`}>Previous</Link> : 
+        <></>;
     const nextPageLink = currentPage < totalPages && totalPages > 1 ? 
-        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage + 1}&per_page=${perPageAmount}`}>Next {perPageAmount}</Link> 
-        : <></> ;
+        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage + 1}&per_page=${perPageAmount}`}>Next {perPageAmount}</Link> : 
+        <></> ;
 
     return (
         <div className="overflow-x-auto">
-            <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 font-sans overflow-hidden">
+            <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100">
                 <div className="w-9/12 my-6">
                     <h1 className="text-4xl font-bold">Customers</h1>
                     <div className="w-full">

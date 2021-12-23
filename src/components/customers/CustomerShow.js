@@ -8,11 +8,8 @@ function CustomerShow(props) {
     const [id, setId] = useState(0); 
     const [events, setEvents] = useState({});
     const [attributes, setAttributes] = useState({})
-    const [lastUpdated, setLastUpdated] = useState(0)
-
+    const [parsedTime, setParsedTime] = useState('')
     const urlParams = useParams();
-    let date;
-    let parsedTime;
 
     useEffect(()=>{
         fetchCustomerData(urlParams.id).then(response => {
@@ -22,9 +19,8 @@ function CustomerShow(props) {
             }
             setId(customer.id)
             setAttributes(customer.attributes)
-            setLastUpdated(customer.last_updated)
-            date = new Date(customer.last_updated)
-            parsedTime = dateObjToFormatStr(date)
+            let date = new Date(customer.last_updated)
+            setParsedTime(dateObjToFormatStr(date))
         })
     }, [urlParams.id])
 
@@ -48,38 +44,46 @@ function CustomerShow(props) {
         return rows
     }
 
-    return (
-        <> 
-            <div>
-                <div>
-                    <h1>{attributes.email}</h1>
-                    <p>Last updated: { parsedTime }</p>
-                </div>
-                <Link to={`edit`} >Edit Attributes</Link>
-            </div>
+    
 
-            <h2>Attributes</h2>
-            <table>
-                <tbody>
-                    <ShowRow attribute="id" content={id}/>
-                    <ShowRow attribute="email" content={attributes.email}/>
-                    <ShowRow attribute="created_at" content={attributes.created_at}/>
-                    { buildRows(mutableAttributes()) }
-                </tbody>
-            </table>
-            <h2>Events</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Event Name</th>
-                        <th>Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    { buildRows(events) }
-                </tbody>
-            </table>
-        </>
+    return (
+        <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 text-gray-700"> 
+            <div className="w-9/12 my-6">
+                <div className="flex justify-between">
+                    <div className="">
+                        <h1 className="text-4xl bold mb-4">{attributes.email}</h1>
+                        <p>Last updated: { parsedTime }</p>
+                    </div>
+                    <Link className="p-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded" to={`edit`} >Edit Attributes</Link>
+                </div>
+
+                <div className="mt-6">
+                    <h2 className="text-4xl bold mb-2">Attributes</h2>
+                    <table className="w-full">
+                        <tbody>
+                            <ShowRow attribute="id" content={id}/>
+                            <ShowRow attribute="email" content={attributes.email}/>
+                            <ShowRow attribute="created_at" content={attributes.created_at}/>
+                            { buildRows(mutableAttributes()) }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="mt-6 w-full">
+                    <h2 className="text-4xl bold mb-2">Events</h2>
+                    <table className="w-full">
+                        <thead>
+                            <tr className="bg-gray-200 w-full text-left border border-gray-300 border-t-0 border-l-0 border-r-0">
+                                <th className="w-4/12 font-normal pl-2 py-2">Event Name</th>
+                                <th className="font-normal py-2">Count</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { buildRows(events) }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     )
 }
 
@@ -88,8 +92,8 @@ export default CustomerShow
 function ShowRow(props){
     return (
         <tr>
-            <td>{props.attribute}</td>
-            <td>{props.content}</td>
+            <td className="p-2 w-4/12 text-gray-500">{props.attribute}</td>
+            <td className="p-2">{props.content}</td>
         </tr>
     )
 }
