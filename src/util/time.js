@@ -1,8 +1,22 @@
+export function convertBackendTimestampToFrontend(timestamp){
+    // Adds milliseconds back UNIX timestamp for frontend use
+    return timestamp * 1000
+}
+
+export function convertFrontendTimestampToBackend(timestamp){
+    // Remove milliseconds from JS UNIX timestamp
+    return Math.floor(timestamp / 1000)
+}
+
+export function currentTimestampAccurateToSeconds(){
+    return Math.floor(Date.now() / 1000)
+}
+
 export function dateObjToFormatStr(dateObj){
     const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul","Aug", "Sep", "Oct", "Nov", "Dec"]
     const year = dateObj.getFullYear();
     const month = dateObj.getMonth();
-    const day = dateObj.getDay();
+    const day = dateObj.getDate();
     let hour = dateObj.getHours();
     const mins = dateObj.getMinutes();
 

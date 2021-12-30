@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom'
-import { dateObjToFormatStr } from "../../util/time"
+import { dateObjToFormatStr, convertBackendTimestampToFrontend } from "../../util/time"
 
 function CustomerListItem(props) {
-    const date = new Date(props.customer.last_updated)
+    const unusableTimestamp = props.customer.last_updated
+    const usableTimestamp = convertBackendTimestampToFrontend(unusableTimestamp)
+    const date = new Date(usableTimestamp)
     const parsedTime = dateObjToFormatStr(date)
     return (
         <tr className="border-b border-gray-200 odd:bg-gray-100 hover:bg-sky-100">

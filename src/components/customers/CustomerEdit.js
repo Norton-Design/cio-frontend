@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
-import { dateObjToFormatStr } from "../../util/time";
+import { dateObjToFormatStr,
+    convertFrontendTimestampToBackend,
+    convertBackendTimestampToFrontend } from "../../util/time";
 import { fetchCustomerData } from "../../api/APIUtils";
 import { patchCustomerData } from "../../api/APIUtils";
 
@@ -15,13 +17,15 @@ function CustomerEdit() {
     useEffect(()=>{
         fetchCustomerData(urlParams.id).then(response => {
             const customer = response.customer
-            const date = new Date(customer.last_updated)
+            const timestamp = convertBackendTimestampToFrontend(customer.last_updated)
+            const date = new Date(timestamp)
             const newTime = dateObjToFormatStr(date)
             setId(customer.id)
             setOriginalAttributes(customer.attributes)
             setModifiedAttributes(customer.attributes)
             setParsedTime(newTime)
-        })
+        });
+        window.scrollTo(0,0);
     }, [])
 
     const handleRemoveAttribute = attribute => {
@@ -62,7 +66,12 @@ function CustomerEdit() {
             formData.append(key, modifiedAttributes[key])
         }
         const response = await patchCustomerData(id, formData)
-        console.log(response)
+        // WORKING HERE
+        // console.log(response)
+        // let return_customer = response['customer']
+        // let testing_date = new Date(1640885897)
+        // console.log(return_customer['last_updated'])
+        // console.log(testing_date.toDateString())
     }
 
     const mutableAttributes = () => {

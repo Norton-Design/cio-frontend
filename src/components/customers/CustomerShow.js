@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from 'react-router-dom'
-import { dateObjToFormatStr } from "../../util/time"
+import { dateObjToFormatStr, convertBackendTimestampToFrontend} from "../../util/time"
 import { fetchCustomerData } from "../../api/APIUtils"
 
 
@@ -19,9 +19,11 @@ function CustomerShow(props) {
             }
             setId(customer.id)
             setAttributes(customer.attributes)
-            let date = new Date(customer.last_updated)
+            let timestamp = convertBackendTimestampToFrontend(customer.last_updated)
+            let date = new Date(timestamp)
             setParsedTime(dateObjToFormatStr(date))
-        })
+        });
+        window.scrollTo(0,0);
     }, [urlParams.id])
 
     const mutableAttributes = () => {
@@ -44,8 +46,6 @@ function CustomerShow(props) {
         return rows
     }
 
-    
-
     return (
         <div className="min-w-screen min-h-screen bg-gray-100 flex justify-center bg-gray-100 text-gray-700"> 
             <div className="w-9/12 my-6">
@@ -54,7 +54,7 @@ function CustomerShow(props) {
                         <h1 className="text-4xl font-medium mb-4">{attributes.email}</h1>
                         <p>Last updated: { parsedTime }</p>
                     </div>
-                    <Link className="p-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded" to={`edit`} >Edit Attributes</Link>
+                    <Link className="px-6 py-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded font-medium" to={`edit`} >Edit Attributes</Link>
                 </div>
 
                 <div className="mt-6">
