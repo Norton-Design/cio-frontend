@@ -20,7 +20,7 @@ class Header extends React.Component {
                         <h3 className="mr-5 text-2xl bold">Customer.io</h3>
                         <nav>
                             <Link className="mr-5 underline hover:text-gray-300" to="/">Home</Link>
-                            <Link className="mr-5 underline hover:text-gray-300" to="/customers">Customers</Link>
+                            <a href="/customers" className="mr-5 underline hover:text-gray-300">Customers</a>
                         </nav>
                     </div>
 

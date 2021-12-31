@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import CustomerListItem from "./CustomerListItem";
 import { fetchCustomersData } from "../../api/APIUtils"
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 function CustomerList(props) {
+    const [searchParams, setSearchParams] = useSearchParams()
     const [list, setList] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState( searchParams.get('page') || 1);
     const [totalPages, setTotalPages] = useState(1);
-    const [perPageAmount, setPerPageAmount] = useState(25);
+    const [perPageAmount, setPerPageAmount] = useState( searchParams.get('per_page') || 25);
 
     useEffect(()=>{
         fetchCustomersData(currentPage, perPageAmount).then(response => {
@@ -20,13 +21,21 @@ function CustomerList(props) {
             }
             setList(response.customers)
         })
-    }, [])
+    }, [currentPage, perPageAmount])
 
     const prevPageLink = currentPage > 1 ? 
-        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage - 1}&per_page=${perPageAmount}`}>Previous</Link> : 
+        <Link 
+            className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" 
+            to={`/customers?page=${currentPage - 1}&per_page=${perPageAmount}`}
+            onClick={()=>{setCurrentPage(currentPage - 1)}}>Previous
+        </Link> : 
         <></>;
     const nextPageLink = currentPage < totalPages && totalPages > 1 ? 
-        <Link className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" to={`/customers?page=${currentPage + 1}&per_page=${perPageAmount}`}>Next {perPageAmount}</Link> : 
+        <Link 
+            className="mx-6 border p-2 rounded shadow-md hover:bg-sky-200" 
+            to={`/customers?page=${currentPage + 1}&per_page=${perPageAmount}`} 
+            onClick={()=>{setCurrentPage(currentPage + 1)}}>Next {perPageAmount}
+        </Link> : 
         <></> ;
 
     return (

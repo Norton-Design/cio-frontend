@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { dateObjToFormatStr,
-    convertFrontendTimestampToBackend,
     convertBackendTimestampToFrontend } from "../../util/time";
 import { fetchCustomerData } from "../../api/APIUtils";
 import { patchCustomerData } from "../../api/APIUtils";
@@ -13,6 +12,7 @@ function CustomerEdit() {
     const [modifiedAttributes, setModifiedAttributes] = useState({})
     const [parsedTime, setParsedTime] = useState('');
     const urlParams = useParams();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         fetchCustomerData(urlParams.id).then(response => {
@@ -30,7 +30,7 @@ function CustomerEdit() {
 
     const handleRemoveAttribute = attribute => {
         let newAttributes = {...modifiedAttributes};
-        delete newAttributes[attribute];
+        newAttributes[attribute] = '**DELETE_ATTRIBUTE**';
         setModifiedAttributes(newAttributes);
     }
     
@@ -47,7 +47,7 @@ function CustomerEdit() {
     const handleAddAttribute = () => {
         const name_input = document.getElementById('new_attribute_name_input');
         const value_input = document.getElementById('new_attribute_value_input');
-        if (!(name_input.value in modifiedAttributes)) {
+        if (!(name_input.value in modifiedAttributes) || (name_input.value in modifiedAttributes && modifiedAttributes[name_input.value] === '**DELETE_ATTRIBUTE**')) {
             let newAttributes = {...modifiedAttributes};
             newAttributes[name_input.value.trim()] = value_input.value.trim();
             setModifiedAttributes(newAttributes);
@@ -61,17 +61,21 @@ function CustomerEdit() {
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
-        const formData = new FormData();
-        for (const key of Object.keys(modifiedAttributes)){
-            formData.append(key, modifiedAttributes[key])
-        }
+        const formData = {...modifiedAttributes}
         const response = await patchCustomerData(id, formData)
-        // WORKING HERE
+        if (response) {
+            navigate(`/customers/${id}`)
+        }
         // console.log(response)
-        // let return_customer = response['customer']
-        // let testing_date = new Date(1640885897)
-        // console.log(return_customer['last_updated'])
-        // console.log(testing_date.toDateString())
+    
+        
+        // TESTING SOMETHING ELSE
+        // e.preventDefault()
+        // const formData = new FormData();
+        // for (const key of Object.keys(modifiedAttributes)){
+        //     formData.append(key, modifiedAttributes[key])
+        // }
+        // const response = await patchCustomerData(id, formData)
     }
 
     const mutableAttributes = () => {
@@ -89,7 +93,9 @@ function CustomerEdit() {
     const buildRows = obj => {
         let rows = []
         for (const [key, value] of Object.entries(obj)){
-            rows.push(<EditRow key={key} attribute={key} content={value} removable={true} />)
+            if (value !== '**DELETE_ATTRIBUTE**'){
+                rows.push(<EditRow key={key} attribute={key} content={value} removable={true} />)
+            }
         }
         return rows
     }
