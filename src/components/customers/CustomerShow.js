@@ -52,7 +52,7 @@ function CustomerShow(props) {
                 <div className="flex justify-between">
                     <div>
                         <h1 className="text-4xl font-medium mb-4">{attributes.email}</h1>
-                        <p>Last updated: { parsedTime }</p>
+                        <p data-test="customer-last-updated">Last updated: { parsedTime }</p>
                     </div>
                     <Link className="px-6 py-3 bold bg-violet-600 h-12 transition-colors hover:bg-violet-500 text-white rounded font-medium" to={`edit`} >Edit Attributes</Link>
                 </div>

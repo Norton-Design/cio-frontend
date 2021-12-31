@@ -40,8 +40,9 @@ function CustomerEdit() {
         setModifiedAttributes(newAttributes);
     }
     
-    const handleDiscardChanges = () => {
-        setModifiedAttributes(originalAttributes)
+    const handleDiscardChanges = (e) => {
+        e.preventDefault()
+        setModifiedAttributes({...originalAttributes})
     }
 
     const handleAddAttribute = () => {
@@ -94,7 +95,7 @@ function CustomerEdit() {
         let rows = []
         for (const [key, value] of Object.entries(obj)){
             if (value !== '**DELETE_ATTRIBUTE**'){
-                rows.push(<EditRow key={key} attribute={key} content={value} removable={true} />)
+                rows.push(<EditRow key={key} attribute={key} content={value} removable={true} />);
             }
         }
         return rows
@@ -107,10 +108,15 @@ function CustomerEdit() {
                 className="w-full p-2 rounded border border-gray-400 mt-0.5" 
                 type="text" 
                 defaultValue={props.content} 
+                data-test={props.content}
                 onChange={ (event)=>{handleChangeAttribute(props.attribute, event.target.value)} }/>
             </dd>
         const removableToggle = props.removable === true ? 
-            <button className="self-center pl-4 underline transition text-red-600 hover:cursor-pointer hover:text-red-800" onClick={()=>handleRemoveAttribute(props.attribute)}>Remove</button> : 
+            <button 
+                className="self-center pl-4 underline transition text-red-600 hover:cursor-pointer hover:text-red-800" 
+                data-test={`remove-${props.attribute}`}
+                onClick={()=>handleRemoveAttribute(props.attribute)}>Remove
+            </button> : 
             <></>
         return (
             <div className="flex">
@@ -137,9 +143,9 @@ function CustomerEdit() {
                     <h2 className="text-3xl font-medium mb-2">Attributes</h2>
                     <form className="w-full" id="attribute-form" onSubmit={handleFormSubmit}>
                         <dl>
-                            <EditRow attribute="id" content={id} editable={false}/>
-                            <EditRow attribute="email" content={modifiedAttributes.email} />
-                            <EditRow attribute="created_at" content={modifiedAttributes.created_at}/>
+                            <EditRow attribute="id" data-test="edit-row-1" content={id} editable={false}/>
+                            <EditRow attribute="email" data-test="edit-row-2" content={modifiedAttributes.email} />
+                            <EditRow attribute="created_at" data-test="edit-row-3" content={modifiedAttributes.created_at}/>
                             { builtMutableRows }
                         </dl>
                     </form>
